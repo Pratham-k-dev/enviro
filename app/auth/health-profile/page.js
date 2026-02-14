@@ -1,19 +1,19 @@
 'use client'
 
-import { useAuth } from './components/AuthProvider'
-import LandingPage from './components/LandingPage'
-import { useEffect } from 'react'
+import { useAuth } from '@/app/components/AuthProvider'
+import HealthProfileForm from '@/app/components/HealthProfileForm'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-export default function Home() {
+export default function HealthProfilePage() {
   const { user, loading } = useAuth()
   const router = useRouter()
 
-  useEffect(() => {
-    if (!loading && user) {
-      router.push('/dashboard')
-    }
-  }, [user, loading, router])
+  // useEffect(() => {
+  //   if (!loading && !user) {
+  //     router.push('/auth/signup')
+  //   }
+  // }, [user, loading, router])
 
   if (loading) {
     return (
@@ -26,6 +26,5 @@ export default function Home() {
     )
   }
 
-  return <LandingPage />
-  
+  return <HealthProfileForm />
 }
