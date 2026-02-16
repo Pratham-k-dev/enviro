@@ -2,7 +2,7 @@
 import "./globals.css";
 import { AuthProvider } from './components/AuthProvider'
 
-import { sessionProvider } from "./components/sessionProvider";
+import { Sessionprovider } from "./components/sessionProvider";
 
 
 export const metadata = {
@@ -18,12 +18,12 @@ export default function RootLayout({ children }) {
       >
 
 
-        <sessionProvider>
+        <Sessionprovider>
         <AuthProvider>
 
         {children}
         </AuthProvider> 
-        </sessionProvider>
+        </Sessionprovider>
       </body>
     </html>
   );

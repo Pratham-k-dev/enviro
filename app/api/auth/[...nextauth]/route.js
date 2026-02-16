@@ -1,5 +1,5 @@
 // app/api/auth/[...nextauth]/route.js
-import { handlers } from "@/lib/auth"
+import { handlers} from "@/lib/auth"
 
 const { GET: _GET, POST: _POST } = handlers
 

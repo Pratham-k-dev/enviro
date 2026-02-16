@@ -1,6 +1,6 @@
 'use client'
 import {  signOut } from 'next-auth/react'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from './AuthProvider'
 import { healthStore } from '@/lib/healthstore'
 import { useState, useEffect } from 'react'
 import { LogOut, Edit2, Heart, Wind, Cloud, Sun, AlertCircle, Leaf } from 'lucide-react'
