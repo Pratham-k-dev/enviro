@@ -32,29 +32,27 @@
 
 'use client'
 
-import { useSession, signIn, signOut } from 'next-auth/react'
-import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import LandingPage from './components/LandingPage'
-import Dashboard from './components/Dashboard'
-import HealthProfileForm from './components/HealthProfileForm'
 
 export default function HomePage() {
   const { data: session, status } = useSession()
+  const router = useRouter()
 
-  if (status === 'loading') {
-    return <div>Loading...</div>
-  }
+  useEffect(() => {
+    console.log(status)
+    // Only act when NextAuth confirms login
+    if (status !== 'authenticated') return
 
-  // Not logged in → Show landing page
-  if (!session) {
-    return <LandingPage />
-  }
+    if (!session.user.hasHealthProfile) {
+      router.replace('/auth/health-profile')
+      return
+    }
 
-  // Logged in but no health profile → Show health form
-  if (!session.user.hasHealthProfile) {
-    return <HealthProfileForm userEmail={session.user.email} />
-  }
+    router.replace('/dashboard')
+  }, [session, status, router])
 
-  // Logged in with health profile → Show dashboard
-  return <Dashboard user={session.user} />
+  return <LandingPage />
 }

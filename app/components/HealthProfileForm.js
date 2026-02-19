@@ -85,10 +85,19 @@ export default function HealthProfileForm() {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     if (validateStep()) {
       healthStore.setProfile(profile)
-      router.push('/dashboard')
+
+      const res = await fetch("/api/health_profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(profile),
+        })
+
+        if(res.ok) router.push('/dashboard')
+        else alert("Failed to save profile")
     }
   }
 

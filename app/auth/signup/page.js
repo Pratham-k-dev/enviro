@@ -71,7 +71,7 @@ export default function SignupPage() {
     
 const result = await signIn('google', {
   redirect: false,
-  callbackUrl: '/auth/health-profile',  // ← YOU tell it to go here
+  callbackUrl: '/',  // ← YOU tell it to go here
 })
 
 if (result?.ok) {

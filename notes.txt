@@ -1,0 +1,41 @@
+useEffect(() => {
+  async function loadEnvData() {
+
+    // Try GPS first
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const lat = pos.coords.latitude
+          const lon = pos.coords.longitude
+
+          const res = await fetch(`/api/environment?lat=${lat}&lon=${lon}`)
+          const data = await res.json()
+
+          console.log("GPS weather:", data)
+        },
+
+        // If GPS denied → fallback to profile location
+        async () => {
+          const city = profile.location
+
+          const res = await fetch(`/api/environment?city=${city}`)
+          const data = await res.json()
+
+          console.log("City weather:", data)
+        }
+      )
+    }
+  }
+
+  if (profile?.location) {
+    loadEnvData()
+  }
+}, [profile])
+
+
+
+
+
+>News
+>disaster
+>chat bot 

@@ -4,11 +4,13 @@ import { useAuth } from '@/app/components/AuthProvider'
 import HealthProfileForm from '@/app/components/HealthProfileForm'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 
 export default function HealthProfilePage() {
   const { user, loading } = useAuth()
   const router = useRouter()
-
+  const {data:session, status}=useSession()
+console.log(status)
   // useEffect(() => {
   //   if (!loading && !user) {
   //     router.push('/auth/signup')
