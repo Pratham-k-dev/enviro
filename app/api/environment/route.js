@@ -155,12 +155,13 @@ export async function GET(req) {
       `https://api.openweathermap.org/data/2.5/weather?lat=${finalLat}&lon=${finalLon}&units=metric&appid=${process.env.OPENWEATHER_KEY}`
     )
     const weather = await weatherRes.json()
-
+    
     // 5️⃣ Fetch AQI
     const aqiRes = await fetch(
       `https://api.waqi.info/feed/geo:${finalLat};${finalLon}/?token=${process.env.WAQI_TOKEN}`
     )
     const aqi = await aqiRes.json()
+    console.log(aqi)
 
     // 6️⃣ Fetch UV
     const uvRes = await fetch(
@@ -174,20 +175,24 @@ export async function GET(req) {
       coordinates: { lat: finalLat, lon: finalLon },
 
       weather: {
-        temp: weather?.main?.temp ?? null,
-        humidity: weather?.main?.humidity ?? null,
-        wind: weather?.wind?.speed ?? null,
-        condition: weather?.weather?.[0]?.main ?? null,
+        temp: weather?.main?.temp ?? 0,
+        humidity: weather?.main?.humidity ?? 0,
+        wind: weather?.wind?.speed ?? 0,
+        condition: weather?.weather?.[0]?.main ?? 0,
       },
 
       air: {
-        aqi: aqi?.data?.aqi ?? null,
-        pm25: aqi?.data?.iaqi?.pm25?.v ?? null,
-        pm10: aqi?.data?.iaqi?.pm10?.v ?? null,
+        
+        aqi: aqi?.data?.aqi ?? 0,
+        pm25: aqi?.data?.iaqi?.pm25?.v ?? 0,
+        pm10: aqi?.data?.iaqi?.pm10?.v ?? 0,
+        so2: aqi?.data?.iaqi?.so2?.v ?? 0, 
+        no2: aqi?.data?.iaqi?.no2?.v ?? 0,   
+        co: aqi?.data?.iaqi?.co?.v ?? 0
       },
 
       uv: {
-        index: uv?.current?.uv_index ?? null,
+        index: uv?.current?.uv_index ?? 0,
       },
     }
 
